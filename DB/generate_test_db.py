@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     # Generate list of random phone numbers
     while len(numbers) < numNumbers:
-        tlf = random.randrange(600000000, 699999999)
+        tlf = random.randrange(100000000, 199999999)
         if tlf not in numbers:
             numbers.append(tlf)
 
@@ -56,5 +56,19 @@ if __name__ == "__main__":
 
     calls.sort(key=lambda i: i[2])  # Order by date
 
+    print("""/* Table creation */
+CREATE TABLE calls (
+  id INT NOT NULL AUTO_INCREMENT,
+  orig VARCHAR(9) NOT NULL,
+  dest VARCHAR(9) NOT NULL,
+  ts TIMESTAMP NOT NULL,
+  duration INT NOT NULL,
+  PRIMARY KEY (id)
+);
+/* Data import */""")
+
+    i = 0
     for l in calls:
-        print("%s,%s,%s,%s" % l)
+        i = i + 1
+        print("INSERT INTO calls VALUES ('%s', '%s', '%s', '%s', '%s');"
+              % (i, l[0], l[1], l[2], l[3]))
