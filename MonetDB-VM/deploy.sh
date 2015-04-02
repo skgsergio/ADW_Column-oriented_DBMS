@@ -48,7 +48,9 @@ sudo -u monetdb monetdb create adw
 sudo -u monetdb monetdb release adw
 
 status ">>> Importing data into MonetDB (this may take a while)..."
-echo "user=monetdb" >> $HOME/.monetdb
-echo "password=monetdb" >> $HOME/.monetdb
+cat > $HOME/.monetdb <<EOF
+user=monetdb
+password=monetdb
+EOF
 bzcat /DB/test_db.sql.bz2 | mclient -d adw > /dev/null
 if [[ $? == 0 ]]; then echo "data imported successfully."; fi
