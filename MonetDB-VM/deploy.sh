@@ -16,9 +16,8 @@
 #
 
 # Variables
-monetdb_mirror="http://dev.monetdb.org/downloads/deb/"
-monetdb_distro="trusty"
-monetdb_key="http://dev.monetdb.org/downloads/MonetDB-GPG-KEY"
+monetdb_repo="deb http://dev.monetdb.org/downloads/deb/ trusty monetdb"
+monetdb_key="--fetch-keys http://dev.monetdb.org/downloads/MonetDB-GPG-KEY"
 
 # Functions
 status() { echo -e "\e[1;34m$@\e[0m"; }
@@ -31,8 +30,8 @@ status ">>> Installing utils..."
 sudo apt-get install -y software-properties-common htop
 
 status ">>> Adding MonetDB repo..."
-sudo apt-key adv --fetch-keys $monetdb_key
-sudo add-apt-repository -y "deb $monetdb_mirror $monetdb_distro monetdb"
+sudo apt-key adv $monetdb_key
+sudo add-apt-repository -y "$monetdb_repo"
 
 status ">>> Updating APT..."
 sudo apt-get update
