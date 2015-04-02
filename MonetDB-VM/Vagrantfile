@@ -29,7 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |c|
     v.customize ["modifyvm", :id, "--memory", "4096"]
   end
 
-  c.vm.synced_folder "../DB/", "/DB/", create: true, group: "root", owner: "root"
+  c.vm.synced_folder "../DB/", "/DB/", create: true, owner: "vagrant", group: "vagrant"
 
   c.vm.provision :shell, run: "once", privileged: true, preserve_order: true, path: "deploy.sh"
 end

@@ -40,11 +40,16 @@ sudo apt-get update
 status ">>> Installing MonetDB..."
 sudo apt-get install -y monetdb5-sql monetdb-client
 
-status ">>> Enabling MonetDB..."
+status ">>> Enabling & starting MonetDB..."
 sudo sed -i 's/STARTUP="no"/STARTUP="yes"/' /etc/default/monetdb5-sql
-
-status ">>> Starting MonetDB..."
 sudo service monetdb5-sql start
 
-status ">>> Loading database in MonetDB..."
-# TBD
+status ">>> Creating database in MonetDB..."
+sudo -u monetdb monetdb create adw
+sudo -u monetdb monetdb release adw
+
+status ">>> Importing data into MonetDB (this may take a while)..."
+echo "user=monetdb" >> $HOME/.monetdb
+echo "password=monetdb" >> $HOME/.monetdb
+mclient -d adw < /DB/test_db.sql > /dev/null
+if [[ $? == 0 ]]; then echo "data imported successfully."; fi
