@@ -21,6 +21,8 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |c|
   c.vm.box = "ubuntu/trusty64"
 
+  c.vm.network :forwarded_port, guest: 50000, host: 50000
+
   c.vm.provider :virtualbox do |v|
     v.name = "Arquitectura del Data Warehouse - Prueba MonetDB"
 

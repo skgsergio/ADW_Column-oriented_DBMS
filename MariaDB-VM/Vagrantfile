@@ -21,6 +21,8 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |c|
   c.vm.box = "ubuntu/trusty64"
 
+  c.vm.network :forwarded_port, guest: 3306, host: 33006
+
   c.vm.provider :virtualbox do |v|
     v.name = "Arquitectura del Data Warehouse - Prueba MariaDB"
 
