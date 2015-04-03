@@ -15,11 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Functions & variables
 status() { echo -e "\e[1;34m>>> $@\e[0m"; }
 exec_dir=$PWD
-
-# Start VMs
 
 case "$1" in
     start|up)
