@@ -56,7 +56,12 @@ if __name__ == "__main__":
 
     calls.sort(key=lambda i: i[2])  # Order by date
 
-    print("""/* Table creation */
+    with open('generated_nums.txt', 'w') as f:
+        for n in numbers:
+            f.write("%s\n" % n)
+
+    with open('test_db.sql', 'w') as f:
+        f.write("""/* Table creation */
 CREATE TABLE calls (
   id INT NOT NULL AUTO_INCREMENT,
   orig VARCHAR(9) NOT NULL,
@@ -65,10 +70,11 @@ CREATE TABLE calls (
   duration INT NOT NULL,
   PRIMARY KEY (id)
 );
-/* Data import */""")
+/* Data import */
+""")
 
-    i = 0
-    for l in calls:
-        i = i + 1
-        print("INSERT INTO calls VALUES ('%s', '%s', '%s', '%s', '%s');"
-              % (i, l[0], l[1], l[2], l[3]))
+        i = 0
+        for l in calls:
+            i = i + 1
+            f.write("INSERT INTO calls VALUES ('%s','%s','%s','%s','%s');\n"
+                    % (i, l[0], l[1], l[2], l[3]))
