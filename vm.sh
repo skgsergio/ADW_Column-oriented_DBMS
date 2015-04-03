@@ -28,7 +28,7 @@ case "$1" in
         cd $exec_dir/MonetDB-VM
         vagrant up
         ;;
-    stop|halt)
+    stop|halt|poweroff)
         status "Stopping MariaDB VM..."
         cd $exec_dir/MariaDB-VM
         vagrant halt
@@ -36,6 +36,10 @@ case "$1" in
         status "Stopping MonetDB VM..."
         cd $exec_dir/MonetDB-VM
         vagrant halt
+        ;;
+    restart|reboot)
+        $0 stop
+        $0 start
         ;;
     destroy)
         status "Destroying MariaDB VM..."
@@ -47,9 +51,9 @@ case "$1" in
         vagrant destroy
         ;;
     status)
-        vagrant global-status | grep $exec_dir | grep --color=none -E "(MonetDB-VM|MariaDB-VM)"
+        vagrant global-status | grep $exec_dir | grep -E "(MonetDB-VM|MariaDB-VM)" | awk '{sub(".*/", "", $5); print $5": "$4}'
         ;;
     *)
-        echo "Usage: $0 {start|stop|destroy|status}" 1>&2
+        echo "Usage: $0 {start|stop|restart|destroy|status}" 1>&2
         ;;
 esac
