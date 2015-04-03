@@ -22,7 +22,7 @@ exec_dir=$PWD
 # Start VMs
 
 case "$1" in
-    start)
+    start|up)
         status "Starting MariaDB VM..."
         cd $exec_dir/MariaDB-VM
         vagrant up
@@ -31,7 +31,7 @@ case "$1" in
         cd $exec_dir/MonetDB-VM
         vagrant up
         ;;
-    stop)
+    stop|halt)
         status "Stopping MariaDB VM..."
         cd $exec_dir/MariaDB-VM
         vagrant halt
