@@ -20,31 +20,31 @@ mariadb_repo="deb http://mirror2.hs-esslingen.de/mariadb/repo/10.0/ubuntu trusty
 mariadb_key="--recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db"
 
 # Functions
-status() { echo -e "\e[1;34m$@\e[0m"; }
+status() { echo -e "\e[1;34m>>> $@\e[0m"; }
 
 # Do things... stuff...
-status ">>> Updating APT..."
+status "Updating APT..."
 sudo apt-get update
 
-status ">>> Installing utils..."
+status "Installing utils..."
 sudo apt-get install -y software-properties-common htop
 
-status ">>> Adding MariaDB repo..."
+status "Adding MariaDB repo..."
 sudo apt-key adv $mariadb_key
 sudo add-apt-repository -y "$mariadb_repo"
 
-status ">>> Updating APT..."
+status "Updating APT..."
 sudo apt-get update
 
-status ">>> Installing MariaDB..."
+status "Installing MariaDB..."
 DEBIAN_FRONTEND=noninteractive sudo -E apt-get install -y mariadb-server
 
-status ">>> Creating database in MariaDB..."
+status "Creating database in MariaDB..."
 mysql -u root <<EOF
 CREATE DATABASE adw;
 EOF
 if [[ $? == 0 ]]; then echo "database created successfully."; fi
 
-status ">>> Importing data into MariaDB (this may take a while)..."
-bzcat /DB/test_db.sql.bz2 | mysql -u root adw > /dev/null
+status "Importing data into MariaDB (this may take a while)..."
+bzcat /DB/test_db.sql.bz2 | time mysql -u root adw > /dev/null
 if [[ $? == 0 ]]; then echo "data imported successfully."; fi
