@@ -39,6 +39,13 @@ sudo apt-get update
 status "Installing MariaDB..."
 DEBIAN_FRONTEND=noninteractive sudo -E apt-get install -y mariadb-server
 
+status "Configuring MariaDB..."
+sudo sed -i 's/127.0.0.1/0.0.0.0/' /etc/mysql/my.cnf
+mysql -u root <<EOF
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+EOF
+sudo service mysql restart
+
 status "Creating database in MariaDB..."
 mysql -u root <<EOF
 CREATE DATABASE adw;
