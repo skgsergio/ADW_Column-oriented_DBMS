@@ -75,7 +75,6 @@ if __name__ == '__main__':
                                            port=33006)
 
         for q in range(0, len(queries)):
-            print(q, queries[q])
             mariaTimes[q] = mariaTimes[q] + time_query(mariaCon, queries[q])
 
         mariaCon.close()
