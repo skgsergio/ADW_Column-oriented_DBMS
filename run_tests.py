@@ -23,13 +23,16 @@ import mysql.connector
 
 queries = (
     "SELECT count(*) FROM calls WHERE dest=172775430;",
-    "SELECT count(*) FROM calls WHERE orig=196995859 AND duration > 300;",
-    "SELECT orig, dest, ts, duration FROM calls WHERE orig=126818715 AND "
-    "dest=174947999 AND duration > 2000;",
-    "SELECT count(*) FROM calls WHERE ts BETWEEN '2015-01-08 00:00:00' AND "
-    "'2015-01-08 23:59:59';",
     "SELECT count(*) FROM calls WHERE duration > 2000;",
     "SELECT count(*) FROM calls WHERE ts > '2015-04-02 09:59:59';"
+    "SELECT count(*) FROM calls WHERE ts BETWEEN '2015-01-08 00:00:00' AND "
+    "'2015-01-08 23:59:59';",
+    "SELECT orig, dest, ts, duration FROM calls WHERE dest=199541268;",
+    "SELECT count(*) FROM calls WHERE orig=196995859 AND duration > 300;",
+    "SELECT orig, dest, ts, duration FROM calls WHERE orig=177962180 AND "
+    "dest=165182577;",
+    "SELECT orig, dest, ts, duration FROM calls WHERE orig=126818715 AND "
+    "dest=174947999 AND duration > 2000;",
 )
 
 mariaTimes = [0] * len(queries)
@@ -52,7 +55,7 @@ if __name__ == '__main__':
     for i in range(0, numRuns):
         print('[*] Run', i + 1, 'of', numRuns, file=sys.stderr)
 
-        print('\t[*] (Re)starting VMs...', file=sys.stderr)
+        print('\t[*] Restarting VMs...', file=sys.stderr)
         subprocess.call(['./vm.sh', 'restart'], stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL)
 
