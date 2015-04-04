@@ -11,7 +11,7 @@ This shouldn't be taken as a definitive test or benchmark due it's done for
 showing where the column-oriented DBMS are usefull.
 
 There isn't a definitive-killer-best-all-in-one DBMS, you need to know your data
-and how is going to be used in order to decide wich DBMS fits your data
+and how is going to be used in order to decide wich DBMS fits best your scenario.
 
 ## Requirements ##
 * [Python 3](https://www.python.org/)
