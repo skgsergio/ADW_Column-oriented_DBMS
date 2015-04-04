@@ -41,11 +41,16 @@ monetTimes = [0] * len(queries)
 
 def time_query(db, query):
     cursor = db.cursor()
+
     start = time.time()
     cursor.execute(query)
     end = time.time()
-    cursor.fetchall()
+
+    row = cursor.fetchone()
+    while row is not None:
+        row = cursor.fetchone()
     cursor.close()
+
     return (end - start)
 
 if __name__ == '__main__':
