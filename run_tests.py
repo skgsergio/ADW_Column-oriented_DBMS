@@ -45,17 +45,18 @@ def time_query(db, query):
     cursor.close()
     return (end - start)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     numRuns = 10
+    resultsFile = 'results.csv'
 
     for i in range(0, numRuns):
-        print("[*] Run", i + 1, "of", numRuns, "...", file=sys.stderr)
+        print('[*] Run', i + 1, 'of', numRuns, file=sys.stderr)
 
-        print("\t[*] (Re)starting VMs...", file=sys.stderr)
-        subprocess.call(["./vm.sh", "restart"], stdout=subprocess.DEVNULL,
+        print('\t[*] (Re)starting VMs...', file=sys.stderr)
+        subprocess.call(['./vm.sh', 'restart'], stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL)
 
-        print("\t[*] Running queries on MonetDB...", file=sys.stderr)
+        print('\t[*] Running queries on MonetDB...', file=sys.stderr)
         monetCon = monetdb.sql.connect(username='monetdb', password='monetdb',
                                        database='adw', hostname='localhost',
                                        port=50000)
@@ -65,7 +66,7 @@ if __name__ == "__main__":
 
         monetCon.close()
 
-        print("\t[*] Running queries on MariaDB...", file=sys.stderr)
+        print('\t[*] Running queries on MariaDB...', file=sys.stderr)
         mariaCon = mysql.connector.connect(user='root', password='',
                                            database='adw', host='localhost',
                                            port=33006)
@@ -75,8 +76,10 @@ if __name__ == "__main__":
 
         mariaCon.close()
 
-    print("query,monetdb,mariadb")
-    for i in range(0, len(queries)):
-        print("\"%s\",%s,%s" % (queries[i],
-                                (monetTimes[i] / numRuns) * 100,
-                                (mariaTimes[i] / numRuns) * 100))
+    print('[!] Results saved as', resultsFile, file=sys.stderr)
+    with open(resultsFile, 'w') as f:
+        f.write('query,monetdb,mariadb\n')
+        for i in range(0, len(queries)):
+            f.write('"%s",%s,%s\n' % (queries[i],
+                                      (monetTimes[i] / numRuns) * 100,
+                                      (mariaTimes[i] / numRuns) * 100))
