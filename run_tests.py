@@ -27,8 +27,8 @@ queries = (
     "SELECT count(*) FROM calls WHERE ts > '2015-04-02 09:59:59';",
     "SELECT count(*) FROM calls WHERE ts BETWEEN '2015-01-08 00:00:00' "
     "AND '2015-01-08 23:59:59';",
-    "SELECT orig, dest, ts, duration FROM calls WHERE dest=171480946;",
     "SELECT count(*) FROM calls WHERE orig=106381066 AND duration > 300;",
+    "SELECT orig, dest, ts, duration FROM calls WHERE dest=171480946;",
     "SELECT orig, dest, ts, duration FROM calls WHERE orig=101552551 "
     "AND dest=150982696;",
     "SELECT count(*) FROM calls WHERE orig=112979361 "
