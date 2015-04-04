@@ -31,7 +31,7 @@ queries = (
     "SELECT count(*) FROM calls WHERE orig=196995859 AND duration > 300;",
     "SELECT orig, dest, ts, duration FROM calls WHERE orig=177962180 "
     "AND dest=165182577;",
-    "SELECT orig, dest, ts, duration FROM calls WHERE orig=126818715 "
+    "SELECT count(*) FROM calls WHERE orig=126818715 "
     "AND dest=174947999 AND duration > 2000;",
 )
 
