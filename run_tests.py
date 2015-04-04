@@ -39,18 +39,27 @@ mariaTimes = [0] * len(queries)
 monetTimes = [0] * len(queries)
 
 
-def time_query(db, query):
-    cursor = db.cursor()
-
+def mariadb_query(query):
+    mariaCon = mysql.connector.connect(user='root', password='',
+                                       database='adw', host='localhost',
+                                       port=33006)
+    cursor = mariaCon.cursor()
     start = time.time()
     cursor.execute(query)
     end = time.time()
+    mariaCon.close()
+    return (end - start)
 
-    row = cursor.fetchone()
-    while row is not None:
-        row = cursor.fetchone()
-    cursor.close()
 
+def monetdb_query(query):
+    monetCon = monetdb.sql.connect(username='monetdb', password='monetdb',
+                                   database='adw', hostname='localhost',
+                                   port=50000)
+    cursor = monetCon.cursor()
+    start = time.time()
+    cursor.execute(query)
+    end = time.time()
+    monetCon.close()
     return (end - start)
 
 if __name__ == '__main__':
@@ -65,24 +74,14 @@ if __name__ == '__main__':
                         stderr=subprocess.DEVNULL)
 
         print('\t[*] Running queries on MonetDB...', file=sys.stderr)
-        monetCon = monetdb.sql.connect(username='monetdb', password='monetdb',
-                                       database='adw', hostname='localhost',
-                                       port=50000)
 
         for q in range(0, len(queries)):
-            monetTimes[q] = monetTimes[q] + time_query(monetCon, queries[q])
-
-        monetCon.close()
+            monetTimes[q] = monetTimes[q] + monetdb_query(queries[q])
 
         print('\t[*] Running queries on MariaDB...', file=sys.stderr)
-        mariaCon = mysql.connector.connect(user='root', password='',
-                                           database='adw', host='localhost',
-                                           port=33006)
 
         for q in range(0, len(queries)):
-            mariaTimes[q] = mariaTimes[q] + time_query(mariaCon, queries[q])
-
-        mariaCon.close()
+            mariaTimes[q] = mariaTimes[q] + mariadb_query(queries[q])
 
     print('[!] Results saved as', resultsFile, file=sys.stderr)
     with open(resultsFile, 'w') as f:
