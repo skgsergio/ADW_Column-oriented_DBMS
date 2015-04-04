@@ -29,5 +29,5 @@ and how is going to be used in order to decide wich DBMS fits your data
 * https://mariadb.com/kb/en/mariadb/documentation/
 
 ## My University ##
-* [School of Computer Sciences Engineering](www.etsiinf.upm.es/?idioma=english)
+* [School of Computer Sciences Engineering](http://www.etsiinf.upm.es/?idioma=english)
 * [Technical University of Madrid](http://en.wikipedia.org/wiki/Technical_University_of_Madrid)
