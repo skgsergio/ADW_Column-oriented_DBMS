@@ -18,9 +18,10 @@
 import random
 from datetime import datetime, date, time, timedelta
 
-numNumbers = 500
-minCalls = 400
-maxCalls = 1200
+days = 240
+numNumbers = 800
+minCalls = 1125
+maxCalls = 2750
 minDuration = 15  # Seconds
 maxDuration = 1*60*60  # Seconds
 
@@ -28,7 +29,7 @@ if __name__ == "__main__":
     numbers = []
     calls = []
     endDate = date.today()
-    initDate = endDate - timedelta(days=120)
+    initDate = endDate - timedelta(days=days)
 
     # Generate list of random phone numbers
     while len(numbers) < numNumbers:
